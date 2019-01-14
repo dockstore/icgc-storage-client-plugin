@@ -82,13 +82,14 @@ public class ICGCStorageClientPlugin extends Plugin {
                 sourcePath = sourcePath.substring(prefix.length());
             } else {
                 System.err.println("File prefix not handled by this plugin.");
-                System.exit(1);
+                return false;
             }
 
             try {
                 Files.createDirectories(destination);
             } catch (IOException e) {
                 System.err.println("Could not create destination directory: " + destination.toFile().getAbsolutePath());
+                return false;
             }
             String bob = "docker run -e ACCESSTOKEN=" + clientKey + " --mount type=bind,source=" + destination.toFile().getAbsolutePath() + ",target=/data overture/score bin/score-client --quiet download --object-id " + sourcePath + " --output-dir /data";
             try {
