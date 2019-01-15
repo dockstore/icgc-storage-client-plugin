@@ -76,7 +76,7 @@ public class ICGCStorageClientPlugin extends Plugin {
             if (sourcePath.startsWith(prefix)){
                 sourcePath = sourcePath.substring(prefix.length());
             } else {
-                System.err.println("File prefix not handled by this plugin.");
+                System.err.println("Scheme not handled by this plugin.");
                 return false;
             }
 
