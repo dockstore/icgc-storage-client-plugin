@@ -17,19 +17,14 @@ package io.dockstore.provision;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.Executors;
 
-import ch.ethz.ssh2.StreamGobbler;
 import com.google.common.collect.Lists;
-import io.dockstore.common.Utilities;
 import org.apache.commons.lang3.StringUtils;
 import ro.fortsoft.pf4j.Extension;
 import ro.fortsoft.pf4j.Plugin;
@@ -91,9 +86,9 @@ public class ICGCStorageClientPlugin extends Plugin {
                 System.err.println("Could not create destination directory: " + destination.toFile().getAbsolutePath());
                 return false;
             }
-            String bob = "docker run -e ACCESSTOKEN=" + clientKey + " --mount type=bind,source=" + destination.toFile().getAbsolutePath() + ",target=/data overture/score bin/score-client --quiet download --object-id " + sourcePath + " --output-dir /data";
+            String command = "docker run -e ACCESSTOKEN=" + clientKey + " --mount type=bind,source=" + destination.toFile().getAbsolutePath() + ",target=/data overture/score bin/score-client --quiet download --object-id " + sourcePath + " --output-dir /data";
             try {
-                runCommand(bob);
+                runCommand(command);
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -111,9 +106,7 @@ public class ICGCStorageClientPlugin extends Plugin {
             builder.directory(new File(System.getProperty("user.home")));
             Process process = builder.start();
             int exitCode = process.waitFor();
-            if (exitCode == 0) {
-                System.out.println("yay");
-            } else {
+            if (exitCode != 0) {
                 System.err.println("Could not execute the command: " + command);
                 System.exit(1);
             }
@@ -121,7 +114,7 @@ public class ICGCStorageClientPlugin extends Plugin {
 
         /**
          * Get the ICGC DCC key
-         * @return
+         * @return  The ICGC DCC key
          */
         private String getKey() {
             if (config.containsKey(DCC_CLIENT_KEY)) {
