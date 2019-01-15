@@ -15,6 +15,7 @@
         <plugin.provider>Denis Yuen</plugin.provider>
         <plugin.dependencies />
         <github.url>scm:git:git@github.com:dockstore/icgc-storage-client-plugin.git</github.url>
+        <dockstore.version>1.5.3</dockstore.version>
     </properties>
 
     <distributionManagement>
@@ -190,7 +191,7 @@
         <dependency>
             <groupId>io.dockstore</groupId>
             <artifactId>dockstore-file-plugin-parent</artifactId>
-            <version>1.5.3</version>
+            <version>${dockstore.version}</version>
             <!-- !!! VERY IMPORTANT -->
             <scope>provided</scope>
         </dependency>
@@ -198,7 +199,7 @@
         <dependency>
             <groupId>io.dockstore</groupId>
             <artifactId>dockstore-common</artifactId>
-            <version>1.5.3</version>
+            <version>${dockstore.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>*</groupId>
