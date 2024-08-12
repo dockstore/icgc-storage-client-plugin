@@ -1,5 +1,5 @@
 # icgc-storage-client-plugin
-Dockstore icgc score client file provisioning plugin
+Dockstore icgc score client file provisioning plugin. With the closure of the [ICGC data portal](https://dcc.icgc.org/), this repository is now archived. 
 
 ## Usage
 
